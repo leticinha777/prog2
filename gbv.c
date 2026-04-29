@@ -16,7 +16,7 @@ int gbv_create(const char *filename)
 
     if(f == NULL)
     {
-        printf("Não foi possível criar o arquivo\n");
+        printf("Não foi possível criar o arquivo em create\n");
         return -1;
     }
 
@@ -36,7 +36,7 @@ int gbv_open(Library *lib, const char *filename)
 {
     if(lib == NULL || filename == NULL)
     {
-        printf("Biblioteca ou arquivo nulo, não foi possível abrir\n");
+        printf("Biblioteca ou arquivo nulo em open\n");
         return -1;
     }
 
@@ -93,7 +93,7 @@ int gbv_add(Library *lib, const char *archive, const char *docname) //comparar s
 {
     if(lib == NULL || archive == NULL || docname == NULL)
     {
-        printf("Não foi possível adicionar, erro no ponteiro\n");
+        printf("Não foi possível adicionar, erro no ponteiro em add\n");
         return -1;
     }
 
@@ -111,6 +111,7 @@ int gbv_add(Library *lib, const char *archive, const char *docname) //comparar s
     {
         for(int i = pos; i<lib->count -1; i++)
             lib->docs[i] = lib->docs[i+1];
+        //como eu garanto que estou apagando o arquivo antigo (gbv_remove)
         
         lib->count--;
 
@@ -126,7 +127,7 @@ int gbv_add(Library *lib, const char *archive, const char *docname) //comparar s
     FILE *d_file = fopen(docname, "rb");
     if(d_file == NULL)
     {
-        printf("Erro ao abrir o documento\n");
+        printf("Erro ao abrir o documento em add\n");
         return -1;
     }
 
@@ -138,7 +139,7 @@ int gbv_add(Library *lib, const char *archive, const char *docname) //comparar s
     if(f == NULL)
     {
         fclose(d_file);
-        printf("Não foi possível abrir a biblioteca\n");
+        printf("Não foi possível abrir a biblioteca em add\n");
         return -1;
     }
 
@@ -156,7 +157,7 @@ int gbv_add(Library *lib, const char *archive, const char *docname) //comparar s
         Document *temp = (Document *)malloc(contagem * sizeof(Document));
         if(!temp)
         {
-            printf("Falha na alocação\n");
+            printf("Falha na alocação em add\n");
             fclose(d_file);
             fclose(f);
             return -1;
@@ -256,7 +257,7 @@ int gbv_remove(Library *lib, const char *docname)
         lib->docs = (Document *)realloc(lib->docs, lib->count * sizeof(Document));
         if(lib->docs == NULL)
         {
-            printf("Erro na realocação\n");
+            printf("Erro na realocação em remove\n");
             return -1;
         }
     }
@@ -302,13 +303,43 @@ int gbv_list(const Library *lib)
     return 0;
 }
 
-int gbv_view(const Library *lib, const char *docname)
+//int gbv_view(const Library *lib, const char *docname) 
+int gbv_view(const Library *lib, const char *archive, const char *docname)
 {
-    if(lib == NULL || docname == NULL)
+    if(lib == NULL || archive == NULL || docname == NULL)
     {
         printf("Ponteiro nulo em view\n");
         return -1;
     }
 
-    
+    int pos = -1;
+
+    for (int i = 0; i < lib->count; i++)
+    {
+        if(strcmp (lib->docs[i].name, docname) == 0)
+        {
+            pos = i;
+            break;
+        }
+    }
+
+    if(pos == -1)
+    {
+        printf("Arquivo não achado em view\n");
+        return -1;
+    }
+
+    FILE *f = fopen(archive, "rb");
+    if(!f)
+    {
+        printf("Erro ao abrir a biblioteca em view\n");
+        return -1;
+    }
+
+    Document doc = lib->docs[pos];
+    long aux_offset;
+    long aux_size;
+
+
+
 }
