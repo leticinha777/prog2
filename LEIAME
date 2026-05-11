@@ -1,0 +1,30 @@
+LEIAME
+
+AUTORIA:
+Letícia de Oliveira Santos
+GRR 20244503
+
+LISTA DE ARQUIVOS:
+minha.bib (Criado para teste)
+doc1.txt (teste)
+doc2.txt (teste)
+doc3.txt (teste)
+doc_grande.txt(teste)
+gbv.h
+gbv.c 
+util.h
+util.c 
+main.c 
+Makefile
+
+DIFICULDADES:
+Minha maior dificuldade foi aprender as bibliotecas e as funções que deveriam
+ser usadas. Além disso, na função gbv_add e na gbv_view, tive algumas dificuldades 
+em relação á lógica dos blocos e superblocos
+
+BUGS CONHECIDOS:
+Em view, estava imprimindo lixo na saída, pois antes eu estava colocando BUFFER_SIZE no 
+fwrite, mas foi corrigido.
+O meu gbv_remove faz apenas a remoção lógica na memória, mas não salva a remoção no 
+arquivo .gbv, pois não há a passagem do parâmetro archive. Essa remoção funciona apenas
+durante a execução atual, não ente execuções diferentes dos programas

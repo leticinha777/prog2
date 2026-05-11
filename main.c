@@ -30,9 +30,9 @@ int main(int argc, char *argv[]) {
     } else if (strcmp(opcao, "-v") == 0 && argc >= 4) {
         //gbv_view(&lib, argv[3]); 
         gbv_view(&lib,biblioteca,argv[3]);
-    } else if (strcmp(opcao, "-o") == 0 && argc >= 4) {
-        gbv_order(&lib, biblioteca, argv[3]);
-    } else {
+    }// else if (strcmp(opcao, "-o") == 0 && argc >= 4) {
+       // gbv_order(&lib, biblioteca, argv[3]);
+    else {
         printf("Opção inválida.\n");
     }
 
